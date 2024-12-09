@@ -57,7 +57,7 @@ namespace Preprocessing
             List<TemperatureDataModel> currentMonthData = new List<TemperatureDataModel>();
             DateTime? currentMonth = null;
 
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "../Compliance/HeavyOlefinsTanks.xlsx");
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "..\\Compliance\\HeavyOlefinsTanks.xlsx");
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -138,7 +138,7 @@ namespace Preprocessing
             List<ThroughputDataModel> currentMonthData = new List<ThroughputDataModel>();
             DateTime? currentMonth = null;
 
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "../Compliance/HeavyOlefinsTanks.xlsx");
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "..\\Compliance\\HeavyOlefinsTanks.xlsx");
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -152,7 +152,6 @@ namespace Preprocessing
                         }
                     });
                     var dataTable = result.Tables["Throughput Data"];
-
                     for (int i = 8; i < dataTable.Rows.Count; i++)
                     {
                         // if (i == 8) // first row
@@ -160,7 +159,7 @@ namespace Preprocessing
                         //     Console.WriteLine($"Timestep : {dataTable.Rows[i][1]}, TBD910: {dataTable.Rows[i][2]}, TBD911: {dataTable.Rows[i][4]}, TBD912: {dataTable.Rows[i][6]}, TBD913: {dataTable.Rows[i][8]}, TB3301: {dataTable.Rows[i][10]}, TBD301: {dataTable.Rows[i][12]}, TUT604: {dataTable.Rows[i][14]}, TUT605: {dataTable.Rows[i][16]}, TUT918: {dataTable.Rows[i][18]}, TOL400: {dataTable.Rows[i][20]}, TOL600: {dataTable.Rows[i][22]}, G354: {dataTable.Rows[i][24]}, G356: {dataTable.Rows[i][26]}");
                         //     break;
                         // }
-                        if (string.IsNullOrWhiteSpace(dataTable.Rows[i][0]?.ToString()))
+                        if (string.IsNullOrWhiteSpace(dataTable.Rows[i][1]?.ToString()))
                         {
                             continue;
                         }
@@ -284,17 +283,10 @@ namespace Preprocessing
             for (int i = 0; i < throughData.Count; i++)
             {
                 List<ThroughputDataModel> monthThroughput = throughData[i];
-                
                 ThroughputCalculations throughputs = new ThroughputCalculations(monthThroughput);
-                Console.WriteLine(throughputs.OriginalData[0].TimeStep.ToString());
                 throughputOutputs.Add(throughputs);
             }
-            Console.WriteLine(tempData.Count);
-            Console.WriteLine(throughData.Count);
-            Console.WriteLine(throughputOutputs.Count);
-           // Console.WriteLine($"Test: {throughputOutputs[0]}");//.OriginalData[0].TimeStep.ToString()}");
-            // Now save the tempOutputs and throughputOutputs as two json or csv files. 
-            // Save tempOutputs and throughputOutputs as JSON
+           
             string tempOutputsPath = Path.Combine(Directory.GetCurrentDirectory(), "TempOutputs.json");
             string throughputOutputsPath = Path.Combine(Directory.GetCurrentDirectory(), "ThroughputOutputs.json");
 

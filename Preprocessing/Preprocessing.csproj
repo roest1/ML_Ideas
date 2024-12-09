@@ -8,11 +8,9 @@
   </PropertyGroup>
 
     <ItemGroup>
-    <Compile Include="../../CarbonCapture/CarbonCapture.DAL/Models/Shared/*.cs" />
-    <Compile Include="../../CarbonCapture/CarbonCapture.DAL/Models/Compliance/HeavyOlefinsTanks/*.cs" />
-    <Compile Include="../../CarbonCapture/CarbonCapture.DAL/DataAccess/Compliance/HeavyOlefinsTanks/*.cs" />
-    <Compile Include="../../CarbonCapture/CarbonCapture.BLL/Compliance/HeavyOlefinsTanks/*.cs" />
-    <PackageReference Include="ExcelDataReader" Version="3.7.0" />
+   <ProjectReference Include="..\..\CarbonCapture\CarbonCapture.DAL\CarbonCapture.DAL.csproj" />
+    <ProjectReference Include="..\..\CarbonCapture\CarbonCapture.BLL\CarbonCapture.BLL.csproj" />
+     <PackageReference Include="ExcelDataReader" Version="3.7.0" />
      <PackageReference Include="ExcelDataReader.DataSet" Version="3.7.0" /> 
   </ItemGroup>
 

@@ -1,6 +1,10 @@
-import torch
-import pandas as pd
-import numpy as np
+import tensorflow as tf
+tf.config.optimizer.set_jit(True)
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+
+# additional optimizations
+#pip install nvidia-pyindex
+#pip install nvidia-tensorflow[horovod]
 
 '''
 INPUTS:
@@ -56,3 +60,42 @@ Monthly Throughput
 
 Avg Monthly Temperature (F)
 '''
+
+import json
+from pathlib import Path
+
+def inspect_json_structure(json_path):
+    def describe_structure(data, indent=0):
+        """Recursively describe the structure of a JSON object."""
+        if isinstance(data, dict):
+            print(" " * indent + "{")
+            for key, value in data.items():
+                print(" " * (indent + 2) + f"'{key}': ", end="")
+                describe_structure(value, indent + 2)
+            print(" " * indent + "}")
+        elif isinstance(data, list):
+            print(f"[{len(data)} items]")
+            if data:
+                describe_structure(data[0], indent + 2)  # Check the first item
+        else:
+            print(type(data).__name__)  # Primitive types
+
+    try:
+        json_path = Path(json_path)  # Ensure it is a Path object
+        if not json_path.exists():
+            print(f"File not found: {json_path}")
+            return
+        
+        # Read the JSON file
+        with open(json_path, 'r') as file:
+            data = json.load(file)
+        
+        # Print the structure
+        describe_structure(data)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+# Example usage
+# Replace 'example.json' with the path to your JSON file
+# inspect_json_structure(Path("..", "Preprocessing", "TempOutputs.json"))
+# inspect_json_structure(Path("..", "Preprocessing", "ThroughputOutputs.json"))
