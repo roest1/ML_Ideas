@@ -57,7 +57,7 @@ namespace Preprocessing
             List<TemperatureDataModel> currentMonthData = new List<TemperatureDataModel>();
             DateTime? currentMonth = null;
 
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "..\\Compliance\\HeavyOlefinsTanks.xlsx");
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "Compliance", "HeavyOlefinsTanks.xlsx");
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -138,7 +138,7 @@ namespace Preprocessing
             List<ThroughputDataModel> currentMonthData = new List<ThroughputDataModel>();
             DateTime? currentMonth = null;
 
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "..\\Compliance\\HeavyOlefinsTanks.xlsx");
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "Compliance", "HeavyOlefinsTanks.xlsx");
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -266,12 +266,12 @@ namespace Preprocessing
             Console.WriteLine("testing temperature load");
 
             List<List<TemperatureDataModel>> tempData = LoadRawTempData(historicalData);
-            Console.WriteLine("Testing throughput load");
+            // Console.WriteLine("Testing throughput load");
 
-            List<List<ThroughputDataModel>> throughData = LoadRawThroughputData(historicalData);
+            // List<List<ThroughputDataModel>> throughData = LoadRawThroughputData(historicalData);
             
             List<TemperatureCalculations> tempOutputs = new List<TemperatureCalculations>();
-            List<ThroughputCalculations> throughputOutputs = new List<ThroughputCalculations>();
+            // List<ThroughputCalculations> throughputOutputs = new List<ThroughputCalculations>();
 
             for (int i = 0; i < tempData.Count; i++)
             {
@@ -280,21 +280,21 @@ namespace Preprocessing
                 tempOutputs.Add(temperatures);
             }
 
-            for (int i = 0; i < throughData.Count; i++)
-            {
-                List<ThroughputDataModel> monthThroughput = throughData[i];
-                ThroughputCalculations throughputs = new ThroughputCalculations(monthThroughput);
-                throughputOutputs.Add(throughputs);
-            }
+            // for (int i = 0; i < throughData.Count; i++)
+            // {
+            //     List<ThroughputDataModel> monthThroughput = throughData[i];
+            //     ThroughputCalculations throughputs = new ThroughputCalculations(monthThroughput);
+            //     throughputOutputs.Add(throughputs);
+            // }
            
             string tempOutputsPath = Path.Combine(Directory.GetCurrentDirectory(), "TempOutputs.json");
-            string throughputOutputsPath = Path.Combine(Directory.GetCurrentDirectory(), "ThroughputOutputs.json");
+//            string throughputOutputsPath = Path.Combine(Directory.GetCurrentDirectory(), "ThroughputOutputs.json");
 
             SaveAsJson(tempOutputs, tempOutputsPath);
-            SaveAsJson(throughputOutputs, throughputOutputsPath);
+  //          SaveAsJson(throughputOutputs, throughputOutputsPath);
 
             Console.WriteLine($"Saved tempOutputs to {tempOutputsPath}");
-            Console.WriteLine($"Saved throughputOutputs to {throughputOutputsPath}");
+    //        Console.WriteLine($"Saved throughputOutputs to {throughputOutputsPath}");
         }
     }
 }
